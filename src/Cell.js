@@ -3,7 +3,10 @@ import "./Cell.css";
 
 /** A single cell on the board.
  *
- * This has no state --- just two props:
+ * This has no state --- just three props:
+ * 
+ * - coord: a string 'y-x' where y is the row and x is the column location of
+ *   the cell.
  *
  * - flipCellsAroundMe: a function rec'd from the board which flips this
  *      cell and the cells around of it
@@ -14,9 +17,9 @@ import "./Cell.css";
  *
  **/
 
-function Cell({ flipCellsAroundMe, isLit }) {
+function Cell({ coord, flipCellsAroundMe, isLit }) {
   const classes = `Cell ${isLit ? "Cell-lit" : ""}`;
-  return <td className={classes} onClick={flipCellsAroundMe} />;
+  return <td className={classes} onClick={() => flipCellsAroundMe(coord)} />;
 }
 
 export default Cell;
