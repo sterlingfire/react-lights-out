@@ -33,7 +33,7 @@ function Board({
   ncols = 5,
   chanceLightStartsOn = 0.5 }) {
 
-  const [board, setBoard] = useState(createBoard());
+  const [board, setBoard] = useState(createBoard);
 
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
@@ -42,7 +42,7 @@ function Board({
     for (let r = 0; r < nrows; r++) {
       initialBoard[r] = [];
       for (let c = 0; c < ncols; c++) {
-        let isLit = (Math.random() < chanceLightStartsOn) ? true : false;
+        let isLit = (Math.random() < chanceLightStartsOn); //? true : false;
         initialBoard[r][c] = (isLit);
       }
     }
@@ -96,6 +96,7 @@ function Board({
   /* Creates DOM board from board state */
 
   function createDOMBoard() {
+    // TODO: make this into a map
     let tableArr = [];
     for (let r = 0; r < nrows; r++) {
       let rowArr = [];
@@ -105,10 +106,11 @@ function Board({
             isLit={board[r][c]}
             key={`${r}-${c}`}
             flipCellsAroundMe={flipCellsAround}
+            // alternatively, could do ={flipCellsARound( () => flipCells(coord))}
             coord={`${r}-${c}`}
           />);
       }
-      rowArr = <tr>{rowArr}</tr>;
+      rowArr = <tr key={r}>{rowArr}</tr>;
       tableArr.push(rowArr);
     }
     return <table><tbody>{tableArr}</tbody></table>;
@@ -116,7 +118,6 @@ function Board({
 
   // if the game is won, just show a winning msg & render nothing else
   if (hasWon()) {
-    console.log('you won!!')
     return (<div>
       <h2>You've won!</h2>
     </div>);
